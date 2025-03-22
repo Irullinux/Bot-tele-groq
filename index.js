@@ -12,7 +12,7 @@ const groqApiKey = process.env.GROQ_API_KEY;
 const bot = new TelegramBot(botToken);
 
 // Set Webhook
-const webhookUrl = `https://your-vercel-app.vercel.app/bot${botToken}`;
+const webhookUrl = `https://bot-tele-groq.vercel.app/bot${botToken}`;
 bot.setWebHook(webhookUrl);
 
 app.post(`/bot${botToken}`, async (req, res) => {
