@@ -23,10 +23,12 @@ app.post(`/bot${botToken}`, async (req, res) => {
 // Fungsi untuk memproses pertanyaan ke Groq API
 async function askGroq(prompt) {
   try {
+    console.log("Mengirim permintaan ke Groq API:", prompt);
+
     const response = await axios.post(
       "https://api.groq.com/openai/v1/chat/completions",
       {
-        model: "llama-3.3-70b-versatile",
+        model: "llama3-70b-8192",
         messages: [{ role: "user", content: prompt }],
       },
       {
@@ -36,13 +38,14 @@ async function askGroq(prompt) {
         },
       }
     );
+
+    console.log("Respons dari Groq API:", response.data);
     return response.data.choices[0].message.content;
   } catch (error) {
-    console.error("Error:", error);
-    return "Maaf, terjadi kesalahan saat memproses permintaan.";
+    console.error("Error dari Groq API:", error.response?.data || error.message);
+    return "Maaf, terjadi kesalahan saat memproses permintaan ke Groq.";
   }
 }
-
 // Respon otomatis dengan AI dari Groq
 bot.on("message", async (msg) => {
   const chatId = msg.chat.id;
