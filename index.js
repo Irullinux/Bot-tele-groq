@@ -51,9 +51,14 @@ bot.on("message", async (msg) => {
   const chatId = msg.chat.id;
   const text = msg.text;
 
+  console.log("Pesan diterima dari Telegram:", text);
+
   bot.sendMessage(chatId, "Sedang memproses...");
 
   const response = await askGroq(text);
+
+  console.log("Respon dari Groq:", response);
+
   bot.sendMessage(chatId, response);
 });
 
